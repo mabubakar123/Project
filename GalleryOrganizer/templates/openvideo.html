@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<br>
+
+<div class="container">
+  <div class="row">    
+    <div class="col-md-8">
+      <br>
+      <form action="/video" method="POST">
+        <video width="520" height="340" controls>
+
+          {% if c %}
+          <source src="{{ url_for('static',filename='outputvideos/'+c+'.mp4')}}" type="video/mp4">
+
+          {% else  %}
+          <source src="{{ url_for('static',filename='outputvideos/outputs.mp4')}}" type="video/mp4">
+          {% endif %}
+        </video><br>
+				<span class="rounded" style="background-color: white; padding: 18px 1px 5px 1px;">
+            <button type="submit" class="btn btn-outline-primary" style="display: none;"> Download</button>
+				</span>
+      </form>
+    </div>
+    <div class="col-md-4 bg-info" style="padding: 40px;">
+      <form action="/trim" method="POST">
+        <p style="color: whitesmoke;">For download click on three dots</p>
+        <span style="color: whitesmoke; ">Want to trim video? </span><label id="clicks"
+          style="cursor: pointer; color: rgb(97, 226, 46);font-weight: 500;"> Click here</label>
+        <p style="color: whitesmoke; display: none;" id="p1"> Start time (in seconds):<input type="number" name="start"
+            id="trim1" placeholder="" style="display: none;border-radius:1em; border: none;"></p>
+        <p style="color: whitesmoke; display: none;" id="p2"> End time (in seconds):<input type="number" name="end"
+            id="trim2" style="display: none;border-radius:1em; border: none;"></p><br>
+        <button type="submit" id="btn" class="btn btn-secondary" style="display: none; ">Done</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+{% block scripts %}
+<script src="{{url_for('static',filename='trim.js')}}"></script>
+
+{% endblock scripts %}
+{% endblock content %}

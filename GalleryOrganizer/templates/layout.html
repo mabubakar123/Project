@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+    {% if title %}
+    <title>Gallery Organizer - {{title}}</title>
+    {% else  %}
+    <title>Gallery Organizer</title>
+    {% endif %}
+
+    <style>
+        .white {
+            color: white;
+            padding: 5px;
+            text-decoration: none;
+        }
+
+        .white:hover {
+            color: white;
+            padding: 9px;
+            background-color: darkturquoise;
+            text-decoration: none;
+        }
+
+        .current {
+            font-size: large;
+            padding: 6px;
+            background-color: rgb(0, 216, 219);
+        }
+
+        body {
+            background-image: url('../static/interface_images/1.jpg');
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .resize {
+            padding: 5px 0px;
+        }
+
+        .topNavTag {
+            padding: 10px;
+        }
+
+        .topNavTag:hover {
+            background-color: darkturquoise;
+        }
+
+        footer {
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-info fixed-top">
+            <div class="container">
+                <a class="navbar-brand mr-4" href="/">Gallery Organizer</a>
+
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav mr-auto">
+                        <a style="color: white;" class="nav-item nav-link" href="{{ url_for('home') }}"><span
+                                class="topNavTag">Home</span></a>
+                        <a style="color: white;" class="nav-item nav-link" href="{{ url_for('about') }}"><span
+                                class="topNavTag">About</span></a>
+                        <a style="color: white;" class="nav-item nav-link" href="{{ url_for('search_post') }}"><span
+                                class="topNavTag">Search Image</span></a>
+                    </div>
+                    <!-- Navbar Right Side -->
+                    <div" class="navbar-nav">
+                        {% if current_user.is_authenticated %}
+                        <a style="color: white;" class="nav-item nav-link" href="{{ url_for('videoclip') }}"><span
+                            class="topNavTag">Create Video Clip</span></a>
+                        <a style="color: white;" class="nav-item nav-link" href="{{ url_for('new_post') }}"><span
+                                class="topNavTag">New Image</span></a>
+                        <a style="color: white;" class="nav-item nav-link" href="{{ url_for('account') }}"><span
+                                class="topNavTag">Account</span></a>
+                        <a style="color: white;" class="nav-item nav-link" href="{{ url_for('logout') }}"><span
+                                class="topNavTag">Logout</span></a>
+                        {% else %}
+                        <a style="color: white;" class="nav-item nav-link" href="{{ url_for('login') }}"><span
+                                class="topNavTag">Login</span></a>
+                        <a style="color: white;" class="nav-item nav-link" href="{{ url_for('register') }}"><span
+                                class="topNavTag">Register</span></a>
+                        {% endif %}
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="container-fluid">
+        <nav>
+            <div class="content-section text-center" style="margin: 62px 10px 5px 10px; padding: 10px 10px;">
+                <!-- people, vehicles, aeroplane, animalsBirds, sports, dining, food, furniture, electricAppliances, bags, householdgoods, others -->
+                <span class="bg-info resize"><a class="white" href=" {{ url_for('get_posts', category='all') }}">All
+                        Images</a></span>
+                <span class="bg-info resize"><a class="white"
+                        href=" {{ url_for('get_posts', category='people') }}">People</a></span>
+                <span class="bg-info resize"><a class="white"
+                        href=" {{ url_for('get_posts', category='vehicles') }}">Vehicles</a></span>
+                <span class="bg-info resize"><a class="white"
+                        href=" {{ url_for('get_posts', category='aeroplane') }}">Aeroplane</a></span>
+                <span class="bg-info resize"><a class="white"
+                        href=" {{ url_for('get_posts', category='animalsBirds') }}">Animals and Birds</a></span>
+                <span class="bg-info resize"><a class="white"
+                        href=" {{ url_for('get_posts', category='sports') }}">Sports</a></span>
+                <span class="bg-info resize"><a class="white"
+                        href=" {{ url_for('get_posts', category='dining') }}">Dining</a></span>
+                <span class="bg-info resize"><a class="white"
+                        href=" {{ url_for('get_posts', category='food') }}">Food</a></span>
+                <span class="bg-info resize"><a class="white"
+                        href=" {{ url_for('get_posts', category='furniture') }}">Furniture</a></span>
+                <span class="bg-info resize"><a class="white"
+                        href=" {{ url_for('get_posts', category='electricAppliances') }}">Electric Appliances</a></span>
+                <span class="bg-info resize"><a class="white"
+                        href=" {{ url_for('get_posts', category='bags') }}">Bags</a></span>
+                <span class="bg-info resize"><a class="white"
+                        href=" {{ url_for('get_posts', category='householdgoods') }}">Household Goods</a></span>
+                <span class="bg-info resize"><a class="white"
+                        href=" {{ url_for('get_posts', category='others') }}">Others</a></span>
+            </div>
+        </nav>
+
+        <div class="row">
+            <div style="margin: auto;">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </main>
+
+
+    </div>
+    <footer class="font-small white bg-info">
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-1">© 2020 Copyright: GalleryOrganizer</div>
+        <!-- Copyright -->
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="{{url_for('static',filename='video.js')}}"></script>
+
+    <script>
+        function highlightCurrent() {
+            const curPage = document.URL;
+            console.log(curPage)
+            const links = document.getElementsByTagName('a');
+            //  console.log(links[0]);
+            for (let link of links) {
+                if (curPage.includes("all") || curPage.includes("people") || curPage.includes("vehicles") || curPage.includes("aeroplane") || curPage.includes("animalsBirds") || curPage.includes("sports") || curPage.includes("dining") || curPage.includes("food") || curPage.includes("furniture") || curPage.includes("electricAppliances") || curPage.includes("bags") || curPage.includes("householdgoods") || curPage.includes("others")) {
+                    if (link.href == curPage) {
+                        link.classList.add("current");
+                    }
+                }
+            }
+        }
+        document.onreadystatechange = () => {
+            if (document.readyState === 'complete') {
+                highlightCurrent()
+            }
+        };
+    </script>
+</body>
+
+</html>

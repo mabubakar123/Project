@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom text-center mb-4"> {{ legend }} </legend>
+            {% if image: %}
+            <div class="thumbnail">
+                <img src="{{ url_for('static',filename='gallery_images/' + image.image_name) }}"
+                    alt="{{ image.image_actual_name }}" style="width:300px; height: 200px">
+                <div class="caption">
+                    <p class="text-center">
+                        <span class="bg-info" style="color: white; border: 0px solid white; padding: 10px">{{ image.image_actual_name }} </span></p>
+                </div>
+            </div>
+            {% endif %}
+            <div class="form-group">
+                {{ form.reciever_email.label(class='form-control-label') }}
+                {{ form.reciever_email(class='form-control form-control-sm') }}
+            </div>
+            <div class="form-group text-center" style='margin: 0px;padding: 0px;'>
+                {{ form.submit(class='btn btn-outline-info') }}
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock content %}

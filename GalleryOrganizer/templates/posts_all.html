@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="container-fluid">
+	{% if images|length == 0 %}
+	<br><br><br><br>
+	<div class="container-fluid text-white bg-info"
+		style="padding: 0px 20px 20px 20px; margin: 0px; border: solid 2px white;">
+		<br>
+		<h1 class="text-center" style="color: white; margin-top: 0px; padding-top: 0px;">No Images Uploaded <br>in this
+			Category Yet!</h1>
+	</div>
+	{% endif %}
+	{% if images|length > 1 %}
+	<div class="col-md-12 text-center" style="margin-bottom: 10px;">
+		<form action="" method="POST">
+			<span>
+				{{ form.sort_by(class='custom-select-sm') }}
+				{{ form.submit(class="btn-sm") }}
+			</span>
+		</form>
+	</div>
+	{% endif %}
+	<div class="row text-center" style="display: flex; justify-content: center;">
+		{% for image in images %}
+		<div style="margin: 1px 1px 3px 1px; padding: 1px 1px 0px 1px;">
+			<div class="thumbnail" style="padding: 2px 2px 0px 2px; position: relative;background-color: white;">
+				{% if category == 'all' %}
+				<a href="{{ url_for('get_posts',category=image.image_class) }}">
+					<span
+						style="position: absolute; top: 10px; left: 10px; background-color: white; color: black; padding: 0px 5px; opacity: 95%; font-size: 15px;">{{ image.image_class }}</span>
+				</a>
+				{% endif %}
+
+				<a href="{{ url_for('post',post_id=image.id) }}">
+					<img src="{{ url_for('static',filename='gallery_images/' + image.image_name) }}"
+						alt="{{ image.image_actual_name }}" style="width:300px; height: 200px">
+						<div class="caption">
+							<p class="text-center">
+								<span class=" bg-info" style="color: white; border: 1px solid white; padding: 6px">
+									{{ image.image_actual_name }}
+								</span>
+							</p>
+						</div>
+				</a>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+<br>
+{% endblock content %}

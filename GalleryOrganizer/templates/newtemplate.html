@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" type="text/css" 
+    href="{{url_for('static',filename='editor1.css')}}"> 
+       
+    {% if title %}
+    <title>Gallery Organizer - {{title}}</title>
+    {% else  %}
+    <title>Gallery Organizer</title>
+    {% endif %}
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+    integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
+    integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+ <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <title>Document</title>
+</head>
+<body>
+  
+
+
+    <div id="successAlert" class="alert alert-success" role="alert" style="display:none; margin-left: 18em;"></div>
+	<div id="errorAlert" class="alert alert-danger" role="alert" style="display:none; margin-left: 18em;" ></div>
+            
+
+
+    
+                   <div class="wrapper">
+                        <div class="sidebar">
+                             <h2> Photo Editor</h2>
+                             <form id="slider-form">
+                             <ul class="nav-ul">
+                              
+                               <li>  <a  onclick="togglesubmenu('innerul')"><i class="fas fa-sliders-h"></i>
+                               Filters<span><i class="fa fa-caret-down" ></i></span></a>
+                              
+                               <ul id="innerul" style="display: none;">
+                               
+                               <li><a >  <label>Grayscale</label>
+                               <input id="gs" name="gs" type="range" min="" max="100" value="0" class="form-control-range" style="width:200px">
+                               </a></li>
+                               <li><a > <label >Blur</label>
+                                <input id="blur" name="blur" type="range" min="0" max="10" value="0" class="form-control-range" style="width:200px">
+                               </a></li> 
+                               <li><a > <label >Brightness</label>
+                                <input id="brightness" name="brightness" type="range" min="" max="200" value="100" class="form-control-range" style="width:200px">
+                                </a></li>
+                               <li><a >    <label>Contrast</label>
+                                <input id="contrast" name="contrast" type="range" min="0" max="200" value="100" class="form-control-range" style="width:200px">
+                               </a></li>
+                              
+                               <li><a>   <label>Hue-Rotate</label>
+                                <input id="hue-rotate" name="hue-rotate" type="range" min="0" max="90" value="0" class="form-control-range" style="width:200px">
+                               </a></li>  
+                               <li><a>   <label >Invert</label>
+                                <input id="invert" name="invert" type="range" min="0" max="100" value="0" class="form-control-range" style="width:200px">
+                               
+                               </a></li>
+                            
+                           </ul></li>      
+
+                      
+                            <li>   <a   onclick="togglesubmenu('c-hide')" >
+                                <i class="fas fa-crop"></i>Crop <span><i class="fa fa-caret-down" ></i></span></a>
+                            <ul id="c-hide" style="display: none;">
+                                <form id="cropform">
+                                <li><a>
+                                    <div class="input-group "> <input type="number" placeholder="  Width" id="c-width" class="form-control mb-3" style="width: 6.6em;">
+                                    <input type="number" placeholder="  Height"  id="c-height" class="form-control" style="width: 6.7em;"></div>  </a></li>
+                                 
+                                   
+                                    <li><a>   <div class="input-group "><input type="number" placeholder=" X-axis"  id="x" class="form-control"  style="width: 6.6em;margin-top: 1em;">
+                                        <input type="number" placeholder=" Y-axis"  id="y" class="form-control"  style="width: 6.6em;margin-top: 1em;"></div>  </a></li>
+                                        <label for="text-color" style="font-size:14px;color: azure;cursor: pointer;">Rectangle Color:</label> 
+                                    <input id="crop-color" type="color" value="#ff0000" name="text-color" style="margin-left: 10px; cursor: pointer;">
+                                    <li><a> <input type="button" id="cropbtn" value="Done" class="btn btn-secondary" style="margin-left: 1em;width: 90px;" >  
+                                            <input type="button" value="Cancel" onclick="cancel()" class="btn btn-secondary" style="width: 90px; margin-left: 10px;">
+                                        </a></li>
+                                    </form>
+
+                            </ul>
+                            
+                            
+                            
+                            </li>
+                              <li>   <a  onclick="togglesubmenu('t-hide')"><i class="fas fa-retweet"></i>Transform
+                                 <span><i class="fa fa-caret-down" ></i></span></a>
+                            <ul id="t-hide" style="display: none;">
+                              
+                               
+                                <li><a>   
+                                    <input type="radio" id="fx" name="flip" class="form-control" value="fx" style="width: fit-content;height: fit-content;margin-left: 15px;">
+                                    <label class="fl" id="flx">Flip X</label>
+                                
+                                    <input type="radio" id="fy" name="flip" class="form-control"value="fy" style="margin-left: 25px;width: auto;height: auto;">
+                                    <label class="fl" id="fly" style="padding-right: 2em;">Flip Y</label>
+                              
+                            
+                                </a></li>
+                                <li><a > 
+                                    <input type="button" class="btn btn-light" id="rotate"  value="Rotate" style="margin-left: 1em;width: auto;">
+                                   </a></li>
+                               
+                            </ul></li>
+                          
+    
+                             <li> <a onclick="togglesubmenu('r-hide')"><i class="fas fa-arrows-alt"></i>Resize
+                             <span><i class="fa fa-caret-down" ></i></span></a>
+                             <ul id="r-hide" style="display: none;">
+                                <form id="resize">
+                                <li><a> <input type="number" placeholder="  Width"  id="width" class="form-control"   style="width: 12em;margin-left: 2em;margin-top: 1em;"></a></li>
+                                <li><a>  <input type="number" placeholder="  Height"  id="height" class="form-control" style="width: 12em;margin-left: 2em;margin-top: 1em;"></a></li>
+                                <li><a> <input type="button" id="resizebtn" value="Done" class="btn btn-secondary" style="margin-left: 2em;" > 
+                                        <input type="button"  value="Cancel"  onclick="cancel()"class="btn btn-secondary" style="width: auto;"> </a></li>
+                                </form>
+                         </ul></li>
+                        
+                             
+                             <li> <a  onclick="togglesubmenu('hide-show')"><i class="fas fa-comment-alt"></i>Add text 
+                                 <span><i class="fa fa-caret-down" ></i></span></a>
+                                <ul id="hide-show" style="display: none;">
+                                    <div class="text-1 controls">
+                                       
+                                  
+                                            <li> <a>                                 
+                            
+                            <input id="text-content"  type="text" placeholder="Write Text Here" 
+                            name="text-content" class="form-control" style="width: 15em;">
+                            </a></li>
+                           
+                            <form id="slider-form">
+                            <li><a><div class="sliders"><label for="text-color" style="font-size:14px;">Text Color:</label>
+                            <input id="text-color" type="color" value="#ff0000"  name="text-color" style="margin-left: 5px; cursor: pointer;"></div>
+                            </a></li>
+                           <li><a>
+                            <select class="browser-default "  id="fontstyle" 
+                            style="height: 3em;margin-left: 0.7em;margin-top: 2em; font-size: small; width: 16em;color: black;">
+                                
+                          
+                                <option value="Arial">Arial</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Comic Sans MS" selected>Comic Sans MS</option>
+                                <option value="Calibri">Calibri</option><option value="MV Boli">Mv Boli</option>
+                                <option value="Verdana">Verdana</option><option value="ALGERIAN">Algerian</option>
+                                <option value="Georgia">Georgia</option><option value="sans-serif">sans-serif</option>
+                            </select> 
+                          
+                           
+                             
+                            </a></li>
+                            <li><a><div class="sliders"><label >Text Size:</label>
+                            <input id="text-size"  type="range" name="text-size"  min="8" max="80" value="18" class="form-control-range" style="width:200px"></div>
+                            </a></li>
+                            <li><a><div class="sliders"><label >Move Text Horizontal:</label>
+                            <input id="text-translate-x" type="range" name="text-translate-x" min="0"  value="50" class="form-control-range" style="width:200px"></div>
+                            </a></li>
+                            <li><a><div class="sliders"><label>Move Text Verticall:</label>
+                            <input id="text-translate-y" type="range" name="text-translate-y" min="6"  value="45" class="form-control-range" style="width:200px"></div>
+                            </a></li>
+                            
+                          </form>
+                      
+                    </div>
+                                </ul>
+                                    </li>
+                               
+                                    <input type="button" value="Reset" onclick="reset() "
+                                     class="btn btn-light" style="margin-top: 4em;width:90px;margin-left: 1em;">
+                                        <input type="button" value="Save" onclick="save()"
+                                         class="btn btn-light" style="margin-top: 4em;width:90px;margin-left: 1em;">
+                                   
+                                </ul>
+                            </form>
+                               
+                                
+                            </div>
+                           
+                                   
+                                           </div>
+                         <div class="main-right">
+                               
+
+                           <div class="img-area">
+                                              {% if image and title %}                           
+                                        <img src="{{ url_for('static',filename='gallery_images/' + image.image_name) }}" id="targetimage" alt="" style="display: none;"  >
+                                              {% endif %}
+                                    {% if rotateimage %}
+                                    <img src="{{ url_for('static',filename='resizeimages/'+ rotateimage)}}" id="targetimage" alt="" style="display: none;"  >
+                                            {% endif %}
+                                        {% if flipimage %}
+                            <img src="{{ url_for('static',filename='resizeimages/'+ flipimage)}}" id="targetimage" alt="" style="display: none;"  >
+                                        {% endif %}
+                                        {% if imagename %}
+                                        <img src="{{ url_for('static',filename='cropimages/' + imagename) }}" id="targetimage" alt="" style="display: none;"  >
+                                     {% endif %}
+                                     {% if resizeimage %}
+                                        <img src="{{ url_for('static',filename='resizeimages/' + resizeimage) }}" id="targetimage" alt="" style="display: none;"  >
+                                     {% endif %}
+                                        <canvas id="canvas"  ></canvas> 
+                                    
+                         </div>      
+                          
+                            
+                           
+                            
+                            
+                         </div>
+                         
+                 
+           
+
+                            <input type="button" value="{{image.id}}"  id="imageid" style="display: none;">
+                            <input type="button" value="{{title}}"  id="imagename" style="display: none;">
+                            <input type="button" value="{{image.image_name}}"  id="imagefname" style="display: none;">
+                          
+                          
+                      
+                          
+                       
+                      <script>
+                          
+                  
+                       
+                      </script>
+
+                        <script  src="{{url_for('static',filename='neweditor.js')}}"></script>
+                        <script  src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.3.0/prototype.js"></script>
+  
+</body>
+</html>

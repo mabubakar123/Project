@@ -1,0 +1,154 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="container-fluid" style="padding: 20px; justify-content: center;">
+	<div class="row" style="margin: 0px 20px;">
+		<div class="col-md-3 bg-info" style="padding-top: 15px; border: 1px solid white;">
+			<div style="justify-content: center;">
+				<div class="row">
+					<div class="rounded" style="background-color: white; margin: 10px auto; padding: 5px; width: 15em;">
+						<label class="fps">Choose time (sec)</label>
+						<input type="number" class="form-control " id="fps" value="5" min="1" max="30"
+							oninput="(validity.valid)||(value='');" style="width: 10em">
+					</div>
+					<div class="rounded" id="transition"
+						style="background-color: white; margin: 10px auto; padding: 5px; width: 15em;">
+						<label for="sel1">Select transition style:</label>
+						<select class="form-control" id="sel1" style="width: 10em;">
+							<option value="None">None</option>
+							<option value="left">Slidein (left)</option>
+							<option value="right">Slidein (right)</option>
+							<option value="all">Directions(mix)</option>
+							<option value="slideout">Slideout (bottom)</option>
+							<option value="crossfadein">crossfadein</option>
+							<option value="crossfadeout">crossfadeout</option>
+							<option value="crossfade">crossfade</option>
+						</select>
+					</div>
+					<div class="rounded"
+						style="background-color: white; padding: 5px 15px; width: 15em; margin: 10px auto; ">
+						<label class="file"> Choose Background Audio </label>
+						<input type="file" class="form-control-file" accept=".mp3,audio/*" id="file">
+					</div>
+					<div class="rounded" style="background-color: white; margin: 10px auto; padding: 5px; width: 15em;">
+						<a id="intro1"
+							style="cursor: pointer; background-color: white; padding: 5px; margin: 10px auto ;"><b> Add
+								Intro Title </b></a>
+						<input type="text" id="intro" style="display: none;"><a class="text-center" id="hide-i"
+							style="display: none;cursor: pointer;">Close</a>
+					</div>
+					<div class="rounded" style="background-color: white; margin: 10px auto; padding: 5px; width: 15em;">
+						<a id="finish1"
+							style="cursor: pointer; background-color: white; padding: 5px; margin: 10px auto ;"><b> Add
+								Ending title </b></a>
+						<input type="text" id="finish" style="display: none;"><a class="text-center" id="hide-f"
+							style="display: none;cursor: pointer;">Close</a>
+					</div>
+					
+				</div>
+			</div>
+
+			<div class="row" style="margin-top: 15px;">
+				<div class="col text-center">
+					<span class="rounded" style="background-color: white; padding: 18px 1px 5px 1px;">
+					<button type="submit" class="btn btn-outline-primary" style="margin-bottom: 1em;" 
+						id="done">Make Video</button>
+					</span>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-9" style="padding: 5px;">
+			<div class="row text-center" style="display: flex; justify-content: center;">
+				{% set count = namespace(value=0) %}
+				{% set colorcount = namespace(value=10000) %}
+				{% set fontsizecount = namespace(value=40000) %}
+				{% set fontfamilycount = namespace(value=100000) %}
+				{% set positioncount = namespace(value=60000) %}
+				{% set transitioncount = namespace(value=200000) %}
+
+				{% for image in images %}
+				<div style="margin: 0px 5px 5px 5px ;">
+					<div class="thumbnail" style="position: relative;">
+						<a>
+							<img src="{{ url_for('static',filename='gallery_images/' + image.image_name) }}"
+								alt="{{ image.image_actual_name }}" style="width:290px; height: 190px;">
+							<div class="checkbox" style="padding-top: 5px; padding-right: 30px ;">
+								<input type="checkbox" name="mycheckbox" id="{{count.value}}" class="check"
+									onclick="check('{{count.value}}','{{image.image_name}}','{{colorcount.value}}','{{fontsizecount.value}}','{{fontfamilycount.value}}','{{positioncount.value}}','{{transitioncount.value}}')"
+									value="{{image.image_name}}">
+							</div>
+
+							<div class="caption">
+								<p class="text-center" style="background-color: white;">
+									<span class="rounded bg-info"
+										style="color: white; border: 1px solid white; padding: 10px;">{{ image.image_actual_name }}
+									</span></p>
+							</div>
+						</a>
+						<div style="background-color: white; padding: 5px;">
+							<input type="text" style="width: 5em;" class="imagetext" id="{{image.image_name}}"
+								onchange="imagetext('{{image.image_name}}','{{colorcount.value}}')"
+								placeholder="Add Text" disabled>
+							<input type="color" onchange="colortext('{{image.image_name}}','{{colorcount.value}}')"
+								id="{{colorcount.value}}" value="#ff0000" disabled>
+							<p style="font-weight: 500">font size:<input type="number"
+									onchange="fosize('{{image.image_name}}','{{fontsizecount.value}}')"
+									id="{{fontsizecount.value}}" value="22" min="8" max="124"
+									oninput="(validity.valid)||(value='');" style="width: 3em;height:24px;" disabled>
+								font-family<select id="{{fontfamilycount.value}}"
+									oninput="fofamily('{{image.image_name}}','{{fontfamilycount.value}}')"
+									style="width: 4em;" disabled>
+									<option value="Arial" selected>Arial</option>
+									<option value="Times New Roman">Times New Roman</option>
+									<option value="Comic Sans MS">Comic Sans MS</option>
+									<option value="Calibri">Calibri</option>
+									<option value="MV Boli">Mv Boli</option>
+									<option value="Verdana">Verdana</option>
+									<option value="Amiri-regular">Amiri-regular</option>
+									<option value="Georgia">Georgia</option>
+									<option value="sans-serif">sans-serif</option>
+								</select></p>
+							<p style="font-weight: 500">Position:<select id="{{positioncount.value}}"
+									oninput="pos('{{image.image_name}}','{{positioncount.value}}')" disabled>
+									<option value="top" selected>Top</option>
+									<option value="bottom">Bottom</option>
+									<option value="center">center</option>
+									<option value="left">Left</option>
+									<option value="right">Right</option>
+								</select>
+								Transition:<select id="{{transitioncount.value}}"
+									oninput="animation('{{image.image_name}}','{{transitioncount.value}}')"
+									style="width: 4em;" disabled>
+									<option value="None" selected>None</option>
+									<option value="crossfadein">crossfadein</option>
+									<option value="crossfadeout">crossfadeout</option>
+									<option value="crossfade">crossfade</option>
+								</select>
+							</p>
+						</div>
+					</div>
+				</div>
+				{% set count.value = count.value + 1 %}
+				{% set fontsizecount.value = fontsizecount.value -1  %}
+				{% set fontfamilycount.value = fontfamilycount.value -1  %}
+				{% set positioncount.value = positioncount.value - 1 %}
+				{% set colorcount.value = colorcount.value - 1 %}
+				{% set transitioncount.value = transitioncount.value - 1 %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div id="successAlert" class="alert alert-success" role="alert"
+			style="display:none;width: 33em; margin-left: 23em;"></div>
+		<div id="errorAlert" class="alert alert-danger" role="alert"
+			style="display:none;width: 33em; margin-left: 23em;"></div>
+	</div>
+</div>
+
+{% block scripts %}
+<script src="{{url_for('static',filename='video.js')}}"></script>
+
+{% endblock scripts %}
+{% endblock content %}

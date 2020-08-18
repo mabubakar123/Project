@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% block content %}
+<br>
+	<div class="container-fluid">
+	    <div class="col-md-12">
+	    <div class="rounded thumbnail text-center">
+			<div style="border: white 2px solid;">
+			<img class="rounded" src="{{ url_for('static',filename='gallery_images/' + image.image_name) }}" alt="{{ image.image_actual_name }}" style="width:350px; height: 250px">
+		</div>
+		<div class="caption">
+				<p class="text-center" style="background-color: white;">
+					<span class="rounded bg-info" style="color: white; border: 1px solid white; padding: 10px;">{{ image.image_actual_name }} </span></p>
+	        </div>
+	        <div class="text-center rounded" style="background-color: white;">
+	        	<a class="btn btn-success btn-sm mt-1 mb-1" href="{{ url_for('rename_post', post_id=image.id) }}">Rename</a>
+				<a class="btn btn-success btn-sm mt-1 mb-1" href="{{ url_for('share_post', post_id=image.id) }}">Share</a>
+				<a class="btn btn-success btn-sm mt-1 mb-1"  href="{{ url_for('edit_post', post_id=image.id) }}"> &nbsp;Edit&nbsp; </a>
+				<a class="btn btn-success btn-sm mt-1 mb-1" href="{{ url_for('static',filename='gallery_images/' + image.image_name) }}" download>Download</a>
+				<br>
+				<button type="button" class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+	        </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	      	<div class="modal-content">
+	        	<div class="modal-header">
+	        		<h5 class="modal-title" id="deleteModalLabel">Delete Image?</h5>
+	          		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        	</div>
+	        	<div class="modal-footer">
+	          		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	          		<form action="{{ url_for('delete_post', post_id=image.id) }}" method="POST">
+	            		<input class="btn btn-danger" type="submit" value="Delete">
+	          		</form>
+	        	</div>
+	      	</div>
+	    </div>
+	</div>
+{% endblock content %}

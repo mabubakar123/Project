@@ -1,0 +1,232 @@
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial;   
+    text-decoration: none;
+    list-style: none;
+    
+}
+
+body{
+    background: #f3f5f9;
+}
+
+.wrapper{
+    display: flex;
+    position: relative;
+}
+.wrapper .sidebar{
+    position: fixed;
+    width: 245px;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    background: #4b4276;
+    padding: 30px 0;
+    overflow-y: scroll;
+}
+.wrapper .sidebar h2{
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 60px;
+
+}
+
+.wrapper .sidebar ul li{
+    line-height: 3em;
+    margin-bottom: 4px;
+    margin-top: 2px;
+    font-size: larger;
+    
+    cursor: pointer;
+  
+
+}
+.wrapper .sidebar ul li a{
+position: relative;
+color: #bdb8d7;
+display: block;
+letter-spacing: .2em;
+font-weight: 600;
+}
+.wrapper .sidebar ul li a .fas{
+width: 27px;
+padding-left: 10px;
+margin-right: 20px;
+}
+.sidebar ul li a:hover{
+   background: #594f8d;
+}
+.wrapper .sidebar ul li:hover a{
+color: #fff;
+text-decoration: none;
+}
+ul ul{
+    display: none;
+}
+.wrapper .sidebar #c-hide li:hover a{
+  background: #4b4276;
+}
+
+/* ul li:hover ul{
+    display: block;
+} */
+     
+.sidebar ul li a span{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+.sidebar ul .feat-show.show{
+  display: block;
+}
+input[type=radio]{
+   margin-left: 20px;
+   cursor: pointer;
+   display: inline;
+}
+.form-control-range{
+  -webkit-appearance: none;
+ 
+
+  height: 13px;
+    border-radius: 5px;
+    background: hsl(0, 0%, 83%);
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+    margin-left: 10px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 40%;
+    height: 13px;
+    border-radius: 5px;
+    background: hsl(0, 0%, 83%);
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+    
+}
+
+  .form-control-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgb(90, 157, 202);
+    cursor: pointer;
+  }
+.form-control-range::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4caf50;
+    cursor: pointer;
+}
+  .sidebar ul ul li a{
+   font-size: 0.3em; 
+   font-weight: lighter;
+   color: black;
+   padding-bottom: 6px;
+   line-height: 35px;
+   outline: none;
+  
+  }
+  label{
+    font-size: small;
+    padding-bottom: 0em;
+    margin-left: 14px;
+  }
+ 
+  .form-control{
+    margin-left: 9px;
+   
+  }
+  .input-group{
+    margin-left: 1em;
+   }
+
+
+.main-right {
+  
+  margin-left: 22em;
+  margin-top: 3em;
+ 
+ margin-right: 1em;
+ 
+}
+
+.main-right .img-area {
+  width:100%;
+  height: 77vh;
+ 
+
+  
+
+}
+.main-right .img-area img {
+  width: 100%;
+
+ 
+
+}
+.main-right input[type="text"] {
+  width: 79%;
+  margin-bottom: 20px;
+  height: 45px;
+  padding: 10px;
+}
+
+.main-right button{
+  float: right;
+  background: #333;
+  border: none;
+  height: 45px;
+  padding: 0 26px;
+  font-size: 15px;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+
+.sliders{
+  margin-left: 10px;
+}
+.sliders label{
+  margin-left: 7px;
+  font-family: Arial; 
+  padding-top: 20px;
+}
+
+
+ul li input[type=button],ul li input[type=submit]{
+  height: 33px;
+  width: 60px;
+  color: #4b4276;
+  border: none;
+  font-weight:normal;
+  border-radius: 3px;
+  margin-left: 33px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+}
+
+
+
+ul li input[type=text],ul li input[type=number]{
+height: 25px;
+
+
+}
